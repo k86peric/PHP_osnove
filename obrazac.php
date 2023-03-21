@@ -1,12 +1,12 @@
 <table border="1">
-        <form action="#" method="post">
+        <form action="authenticate.php" method="post">
         <tr>
             <th>Ime:</th>
-            <th><input type="text" name="name"></th>
+            <th><input type="text" name="firstName"></th>
         </tr>
         <tr>
             <th>Prezime:</th>
-            <th><input type="text" name="surname"></th>
+            <th><input type="text" name="lastName"></th>
         </tr>
         <tr>
             <th>Email:</th>
