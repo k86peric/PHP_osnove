@@ -35,5 +35,5 @@ else if(ctype_alpha($word)) {
 
     file_put_contents('words.json', $wordsJson);
 
-    header("Location: index.php");
+    header("Location: parcijalni2index.php");
 }
