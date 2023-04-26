@@ -1,45 +1,77 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Parcijalni2</title>
-</head>
-<body>
-    <table>
-        <tr>
-            <td>
-                <form action="analiza.php" method="POST">
-                <label>Upišite riječ:</label><br>
-                <input type="text" name="word"><br><br>
-                <input type="submit" value="pošalji">
-                </form>
-            </td>
-            
-            <td>
-                <table border = "1">
-                    <tr>
-                        <th>Riječ</th>
-                        <th>Broj slova</th>
-                        <th>Broj suglasnika</th>
-                        <th>Broj samoglasnika</th>
-                    </tr>
-                    <?php
-                    $wordsJson = file_get_contents('words.json');
-                    $wordsArr = json_decode($wordsJson, true);
-                        foreach ($wordsArr as $word) {
-                        echo    "<tr>";
-                        echo        "<td>{$word['word']}</td>";
-                        echo        "<td>{$word['brSlova']}</td>";
-                        echo        "<td>{$word['brSug']}</td>";
-                        echo        "<td>{$word['brSam']}</td>";
-                        echo    "</tr>";
-                        }
-                    ?>
-                </table>
-            </td>
-        </tr>
-    </table>
-</body>
-</html>
+<?php
+
+class Osoba{
+    public function __construct(
+        protected string $name, 
+        protected int $age = 20, 
+        protected string $gender = 'f'
+        )
+    {
+        echo "Calling construct in Osoba\n";
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
+    public function setAge(int $age): void
+    {
+        $this->age = $age;
+    }
+
+    public function setGender(bool $isMale): void
+    {
+        $this->gender = $isMale ? 'm' : 'f';
+    }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+}
+
+class Predavac extends Osoba
+{
+}
+
+class Polaznik extends Osoba
+{
+    public function __construct(
+        string $name, 
+        int $age = 20, 
+        string $gender = 'f',
+        private Predavac $predavac = new Predavac('Ivan')
+        )
+    {
+        parent::__construct($name, $age, $gender);
+        echo "Calling construct in Osoba\n";
+    }
+
+    public function __destruct()
+    {
+        echo "Mr. Stark, I don't feel so good....\n";
+    }
+
+    public function sayHello(): string
+    {
+        $hello = "Hi, my name is $this->name. I am $this->age years old!";
+
+        if ($this->gender === 'm') {
+            $hello .= ' I am a male.';
+        } else {
+            $hello .= ' I am a female.';
+        }
+
+        $hello .= " My teacher is {$this->predavac->name}";
+
+        return $hello;
+    }
+}
+
+$polaznik = new Polaznik('Ana', 29);
+$polaznik2 = new Polaznik('Marko', gender: 'm');
+
+unset($polaznik);
+
+var_dump($polaznik2->sayHello());
