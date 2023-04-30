@@ -79,6 +79,18 @@ class Ford extends automobili implements paljenjeOnOff {
     }
 }
 
+class radio implements paljenjeOnOff{
+    public function paljenjeOn(): string
+    {
+        return "Dok svira radio.... \n";
+    }
+
+    public function paljenjeOff(): string
+    {
+        return "***Sound of silence***\n";
+    }
+}
+
 function sayKmpt($groupmember){
     echo "{$groupmember->kmpt()}";
 
@@ -86,6 +98,7 @@ function sayKmpt($groupmember){
 
 $chevrolet = new Chevrolet(789);
 $ford = new Ford(879);
+$radio = new radio();
 
 $group = [$chevrolet, $ford];
 
@@ -95,3 +108,6 @@ foreach ($group as $groupmember){
     echo $groupmember->paljenjeOff();
     echo "\n";
 }
+
+echo $radio->paljenjeOn();
+echo $radio->paljenjeOff();
