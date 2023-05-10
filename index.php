@@ -1,77 +1,29 @@
 <?php
 
-class Osoba{
-    public function __construct(
-        protected string $name, 
-        protected int $age = 20, 
-        protected string $gender = 'f'
-        )
-    {
-        echo "Calling construct in Osoba\n";
-    }
+include 'vendor/autoload.php';
 
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
+use App\Math\Geometry\Circle;
+use App\Math\Geometry\Exception\RadiusException;
 
-    public function setAge(int $age): void
-    {
-        $this->age = $age;
-    }
-
-    public function setGender(bool $isMale): void
-    {
-        $this->gender = $isMale ? 'm' : 'f';
-    }
-
-    public function getName(): string
-    {
-        return $this->name;
-    }
+try{
+try {
+    $geometryCircle = new Circle(10);
+} catch (RadiusException | TypeError) {
+    echo "Radius must be a number greater than 0\n";
+    return;
+}
+catch (\Throwable $th) {
+    echo "Exception happened while instancing a circle\n";
+    throw $th;
+}
+return;
+    
+}catch (\Throwable $th) {
+    echo "Error!\n";
+    return;
+}
+finally {
+    echo "Finally!\n";
 }
 
-class Predavac extends Osoba
-{
-}
-
-class Polaznik extends Osoba
-{
-    public function __construct(
-        string $name, 
-        int $age = 20, 
-        string $gender = 'f',
-        private Predavac $predavac = new Predavac('Ivan')
-        )
-    {
-        parent::__construct($name, $age, $gender);
-        echo "Calling construct in Osoba\n";
-    }
-
-    public function __destruct()
-    {
-        echo "Mr. Stark, I don't feel so good....\n";
-    }
-
-    public function sayHello(): string
-    {
-        $hello = "Hi, my name is $this->name. I am $this->age years old!";
-
-        if ($this->gender === 'm') {
-            $hello .= ' I am a male.';
-        } else {
-            $hello .= ' I am a female.';
-        }
-
-        $hello .= " My teacher is {$this->predavac->name}";
-
-        return $hello;
-    }
-}
-
-$polaznik = new Polaznik('Ana', 29);
-$polaznik2 = new Polaznik('Marko', gender: 'm');
-
-unset($polaznik);
-
-var_dump($polaznik2->sayHello());
+var_dump($geometryCircle->getExtent());
