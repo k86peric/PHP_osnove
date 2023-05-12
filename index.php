@@ -1,29 +1,20 @@
 <?php
 
+use App\Math\Geometry\Notebook;
+use App\Math\Geometry\Triangle;
+use App\Math\Geometry\Circle;
+use App\Math\Geometry\Square;
+
 include 'vendor/autoload.php';
 
-use App\Math\Geometry\Circle;
-use App\Math\Geometry\Exception\RadiusException;
+$notebook = Notebook::getInstance();
+$notebook
+        ->addDrawableShape(new Circle(10))
+        ->addDrawableShape(new Triangle(10, 5, 2));
 
-try{
-try {
-    $geometryCircle = new Circle(10);
-} catch (RadiusException | TypeError) {
-    echo "Radius must be a number greater than 0\n";
-    return;
-}
-catch (\Throwable $th) {
-    echo "Exception happened while instancing a circle\n";
-    throw $th;
-}
-return;
-    
-}catch (\Throwable $th) {
-    echo "Error!\n";
-    return;
-}
-finally {
-    echo "Finally!\n";
-}
+echo $notebook->getDrawing(), "\n";
 
-var_dump($geometryCircle->getExtent());
+$notebook = Notebook::getInstance();
+$notebook->addDrawableShape(new Square());
+
+echo $notebook->getDrawing(), "\n";

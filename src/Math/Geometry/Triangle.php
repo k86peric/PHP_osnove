@@ -1,8 +1,20 @@
 <?php
 
-namespace Math\Geometry;
+namespace App\Math\Geometry;
 
-class Triangle
+use App\Math\Geometry\Interface\Drawable;
+
+class Triangle implements Drawable
 {
-    
+    public function __construct(
+        private int $firstSide, private int $secondSide, private int $thirdSide
+    )
+    {
+        
+    }
+
+    public function draw(): string 
+    {
+        return '▲';
+    }
 }
