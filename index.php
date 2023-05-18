@@ -1,20 +1,21 @@
 <?php
 
-use App\Math\Geometry\Notebook;
-use App\Math\Geometry\Triangle;
-use App\Math\Geometry\Circle;
-use App\Math\Geometry\Square;
-
 include 'vendor/autoload.php';
+$dbConfig = require_once './config/database.php';
+use App\Videostore\Genre;
 
-$notebook = Notebook::getInstance();
-$notebook
-        ->addDrawableShape(new Circle(10))
-        ->addDrawableShape(new Triangle(10, 5, 2));
+try {
+        $db_connection = new mysqli(
+                username: $dbConfig['username'],
+                password: $dbConfig['password'],
+                database: $dbConfig['database']);
+} catch (\Throwable $th) {
+        echo "Error while connecting to database\n";
+        return;
+}
 
-echo $notebook->getDrawing(), "\n";
+$result = $db_connection->query('SELECT * FROM zanr');
 
-$notebook = Notebook::getInstance();
-$notebook->addDrawableShape(new Square());
-
-echo $notebook->getDrawing(), "\n";
+while ($genre = $result->fetch_object(Genre::class)) {
+        echo $genre->getName(), "\n";
+}
