@@ -4,10 +4,13 @@ namespace App\Videostore;
 class Genre {
 
     private string $ID_Naziv;    
-    private string $Naziv;
+    
+    public function __construct(private string $Naziv)
+    {}
         
-    public function getName(): string
+    public function getName(bool $isUpperCaseRequest = false): string
     {
-        return strtolower($this->Naziv);
+        return $isUpperCaseRequest ? strtoupper($this->Naziv)
+        : strtolower($this->Naziv);
     }
 }
