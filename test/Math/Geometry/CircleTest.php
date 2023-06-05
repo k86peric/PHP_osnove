@@ -28,7 +28,7 @@ class CircleTest extends TestCase
     {
         return [
             [10, 2 * 3.14 * 10],
-            [100, 2 * 3.14 * 10],
+            [100, 2 * 3.14 * 100],
             [5, 2 * 3.14 * 5],
         ];
     }
