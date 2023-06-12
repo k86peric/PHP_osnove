@@ -3,13 +3,20 @@
 namespace App\Controller;
 
 use App\Model\Genre;
+use Core\Controller;
 
-class GenreController
+class GenreController extends Controller
 {
     public function index()
     {
         $genre = new Genre();
 
-        return $genre->findAll();
+        //var_dump($genre);
+
+        $this->renderView('genres', [
+            'title' => 'Genres',
+            'data' => $genre->findAll()
+
+        ]);
     }
 }
